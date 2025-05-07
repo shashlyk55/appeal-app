@@ -125,7 +125,9 @@ exports.Prisma.AppealScalarFieldEnum = {
   title: 'title',
   content: 'content',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  message: 'message'
 };
 
 exports.Prisma.SortOrder = {
@@ -136,6 +138,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

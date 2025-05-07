@@ -20,4 +20,6 @@ model Appeal {
   content   String
   status    String
   createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @default(now()) @db.Timestamp(6)
+  message   String?
 }

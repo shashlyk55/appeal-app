@@ -1,11 +1,11 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "../generated/prisma"
 
 class PrismaService {
     private static instance: PrismaService
-    public Prisma: PrismaClient
+    public prisma: PrismaClient
 
     private constructor(){
-        this.Prisma = new PrismaClient()
+        this.prisma = new PrismaClient()
     }
 
     public static getInstance(): PrismaService {
@@ -16,12 +16,12 @@ class PrismaService {
     }
 
     async connect(): Promise<void> {
-        await this.Prisma.$connect()
+        await this.prisma.$connect()
     }
 
     async disconnect(): Promise<void> {
-        await this.Prisma.$disconnect()
+        await this.prisma.$disconnect()
     }
 }
 
-module.exports = PrismaService
+export const prismaService = PrismaService.getInstance();

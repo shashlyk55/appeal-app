@@ -1,20 +1,42 @@
+import { Appeal } from '../generated/prisma'
+import { prismaService } from '../PrismaService/PrismaService' 
+import { IUpdateStatuses } from '../Types/IUpdateStatuses'
+import { AppealStatus } from '../Types/StatusEnum'
 
-class AppealRepository implements IRepository<Appeal> {
-    add(obj: Appeal): Appeal {
-        throw new Error("Method not implemented.");
+export class AppealRepository implements IRepository<Appeal>, IUpdateStatuses {
+    async add(data: Appeal): Promise<Appeal> {
+        return await prismaService.prisma.appeal.create({
+            data, 
+        })
     }
-    edit(id: number, obj: Appeal): Appeal {
-        throw new Error("Method not implemented.");
+    async update(id: number, data: Appeal): Promise<Appeal> {
+        return await prismaService.prisma.appeal.update({
+            where: { id },
+            data,
+        })
     }
-    getOne(id: number): Appeal {
-        throw new Error("Method not implemented.");
+    async getOne(id: number): Promise<Appeal | null> {
+        return await prismaService.prisma.appeal.findUnique({
+            where: { id },
+        })
     }
-    getAll(): Appeal[] {
-        throw new Error("Method not implemented.");
+    async getAll(): Promise<Appeal[]>{
+        return await prismaService.prisma.appeal.findMany()
     }
-    
-
+    async delete(id: number): Promise<Appeal> {
+        return await prismaService.prisma.appeal.delete({
+            where: { id },
+        })
+    }
+    async updateStatusMany(oldStatus: AppealStatus, newStatus: AppealStatus, message: string): Promise<Appeal[]> {
+        return await prismaService.prisma.appeal.updateManyAndReturn({
+            where: {
+                status: oldStatus
+            },
+            data: {
+                status: newStatus,
+                message: message
+            }
+        })
+    }
 }
-
-
-module.exports = AppealRepository

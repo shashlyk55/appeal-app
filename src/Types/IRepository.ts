@@ -1,0 +1,9 @@
+
+
+interface IRepository<T> {
+    add(data: T): Promise<T>
+    update(id: number, data: T): Promise<T>
+    delete(id: number): Promise<T>
+    getOne(id: number): Promise<T | null>
+    getAll(): Promise<T[]>
+}
