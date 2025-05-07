@@ -1,10 +1,10 @@
 const router = require('express').Router()
 
-router.get('/:id')
 router.get('/')
 router.post('/')
+router.put('/process')
 router.put('/finish')
 router.put('/cancel')
-router.put('/cancel-all')
+router.put('/process/cancel-all')
 
 module.exports = router
