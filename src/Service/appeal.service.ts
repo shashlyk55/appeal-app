@@ -4,18 +4,16 @@ import { IUpdateStatuses } from "../Types/IUpdateStatuses";
 import { AppealStatus } from "../Types/StatusEnum";
 import { IRepository } from "../Types/IRepository"
 import { AppError } from "../AppError/AppError";
+import { Filter } from "../Types/Filter";
 
 type IMix = IRepository<Appeal> & IUpdateStatuses
 
 export class AppealService {
     private readonly repository: IMix = new AppealRepository()
-    // constructor(){
-    //     this.repository = new AppealRepository()   
-    // }
-
-    async getAllAppeals(){
+    
+    async getAllAppeals(filter?: Filter){
         try{
-            return await this.repository.getAll()
+            return await this.repository.getAll(filter)
         } catch (err){
             console.error(err);
             throw new AppError(500, `server error`)

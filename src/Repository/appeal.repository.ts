@@ -1,5 +1,6 @@
 import { Appeal } from '../generated/prisma'
 import { prismaService } from '../PrismaService/PrismaService' 
+import { Filter } from '../Types/Filter'
 import { IRepository } from '../Types/IRepository'
 import { IUpdateStatuses } from '../Types/IUpdateStatuses'
 import { AppealStatus } from '../Types/StatusEnum'
@@ -21,8 +22,15 @@ export class AppealRepository implements IRepository<Appeal>, IUpdateStatuses {
             where: { id },
         })
     }
-    async getAll(): Promise<Appeal[]>{
-        return await prismaService.prisma.appeal.findMany()
+    async getAll(filters?: Filter): Promise<Appeal[]>{
+        return await prismaService.prisma.appeal.findMany({
+            where: {
+                createdAt: {
+                    gte: filters?.startDate,
+                    lte: filters?.endDate
+                }
+            }
+        })
     }
     async delete(id: number): Promise<Appeal> {
         return await prismaService.prisma.appeal.delete({

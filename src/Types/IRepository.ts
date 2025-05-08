@@ -1,3 +1,4 @@
+import { Filter } from "./Filter"
 
 
 export interface IRepository<T> {
@@ -5,5 +6,5 @@ export interface IRepository<T> {
     update(id: number, data: Partial<T>): Promise<T>
     delete(id: number): Promise<T>
     getOne(id: number): Promise<T | null>
-    getAll(): Promise<T[]>
+    getAll(filters?: Filter): Promise<T[]>
 }

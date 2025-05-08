@@ -1,0 +1,51 @@
+@baseUrl = http://localhost:3000/api/appeal
+@contentType = application/json
+
+### get all
+GET {{baseUrl}}
+Content-Type: {{contentType}}
+
+### get: filter 
+GET {{baseUrl}}?startDate=2025-05-08&endDate=2025-05-09
+Content-Type: {{contentType}}
+
+###
+GET {{baseUrl}}?startDate=2025-05-08
+Content-Type: {{contentType}}
+
+### post: add new
+POST {{baseUrl}}
+Content-Type: {{contentType}}
+
+{
+    "appeal": {
+        "title": "Appeal 41",
+        "content": "test test testttttt"
+    }
+}
+
+### put: in process
+PUT {{baseUrl}}/4/process
+Content-Type: {{contentType}}
+
+### put: finish
+PUT {{baseUrl}}/2/finish
+Content-Type: {{contentType}}
+
+{
+    "message": "qwerty"
+}
+
+### put: cancel appeal
+PUT {{baseUrl}}/2/cancel
+Content-Type: {{contentType}}
+
+
+{
+    "message": "cancel message"
+}
+
+### put: cancell all in porcess
+PUT {{baseUrl}}/process/cancel-all
+Content-Type: {{contentType}}
+

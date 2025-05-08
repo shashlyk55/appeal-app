@@ -1,12 +1,17 @@
 import { AppealService } from "../Service/appeal.service";
 import { Request, Response } from "express";
+import { Filter } from "../Types/Filter";
 
 export class AppealController {
-
     private readonly appealService: AppealService = new AppealService()
     
     public getAll = async(req: Request, res: Response) => {
-        const appeals = await this.appealService.getAllAppeals()
+        const queryParams = req.query
+        const filters: Filter = {
+            startDate: queryParams.startDate ? new Date(queryParams.startDate as string) : undefined,
+            endDate: queryParams.endDate ? new Date(queryParams.endDate as string) : undefined
+        }        
+        const appeals = await this.appealService.getAllAppeals(filters)        
         return res.status(200).json({
             data: appeals
         })

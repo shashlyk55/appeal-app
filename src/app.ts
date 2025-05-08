@@ -1,6 +1,5 @@
 const express = require('express')
 const appealRoutes = require('./Route/appeal.route')
-//const ErrorHandlerMiddleware = require('./Middleware/ErrorHandler')
 import {ErrorHandlerMiddleware} from './Middleware/ErrorHandler'
 
 const app = express()
