@@ -1,5 +1,6 @@
 import { Appeal } from '../generated/prisma'
 import { prismaService } from '../PrismaService/PrismaService' 
+import { IRepository } from '../Types/IRepository'
 import { IUpdateStatuses } from '../Types/IUpdateStatuses'
 import { AppealStatus } from '../Types/StatusEnum'
 
@@ -9,7 +10,7 @@ export class AppealRepository implements IRepository<Appeal>, IUpdateStatuses {
             data, 
         })
     }
-    async update(id: number, data: Appeal): Promise<Appeal> {
+    async update(id: number, data: Partial<Appeal>): Promise<Appeal> {
         return await prismaService.prisma.appeal.update({
             where: { id },
             data,
@@ -39,4 +40,5 @@ export class AppealRepository implements IRepository<Appeal>, IUpdateStatuses {
             }
         })
     }
+    
 }

@@ -1,13 +1,17 @@
 import { Appeal } from "../generated/prisma";
+import { AppealRepository } from "../Repository/appeal.repository";
 import { IUpdateStatuses } from "../Types/IUpdateStatuses";
 import { AppealStatus } from "../Types/StatusEnum";
+import { IRepository } from "../Types/IRepository"
+import { AppError } from "../AppError/AppError";
 
+type IMix = IRepository<Appeal> & IUpdateStatuses
 
 export class AppealService {
-    constructor(
-        private repository: IRepository<Appeal>,
-        private additionalRepository?: IUpdateStatuses
-    ){}
+    private readonly repository: IMix = new AppealRepository()
+    // constructor(){
+    //     this.repository = new AppealRepository()   
+    // }
 
     async getAllAppeals(){
         try{
@@ -45,8 +49,7 @@ export class AppealService {
             if(!appeal){
                 throw new AppError(404, 'not found')
             }
-            appeal.status = AppealStatus.new
-            const newAppeal = await this.repository.update(id, appeal)
+            const newAppeal = await this.repository.update(id, {status: AppealStatus.process})
             return newAppeal
         } catch (err){
             console.error(err);
@@ -85,7 +88,7 @@ export class AppealService {
     }
     async cancelAllProcessedAppeals(message: string){
         try{
-            const updatedAppeals = await this.additionalRepository?.updateStatusMany(AppealStatus.process, AppealStatus.cancel, message)
+            const updatedAppeals = await this.repository.updateStatusMany(AppealStatus.process, AppealStatus.cancel, message)
             return updatedAppeals
         } catch (err){
             console.error(err);
