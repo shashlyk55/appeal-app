@@ -5,8 +5,8 @@ import {ErrorHandlerMiddleware} from './Middleware/ErrorHandler'
 
 const app = express()
 app.use(express.json())
-//app.use(ErrorHandlerMiddleware)
 app.use('/api/appeal', appealRoutes)
+app.use(ErrorHandlerMiddleware)
 
 
 app.listen(3000, 'localhost', () => {

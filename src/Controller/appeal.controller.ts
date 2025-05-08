@@ -5,18 +5,6 @@ export class AppealController {
 
     private readonly appealService: AppealService = new AppealService()
     
-    // constructor(){
-    //     this.appealService = new AppealService()
-
-    //     // Явная привязка контекста для всех методов
-    //     this.getAll = this.getAll.bind(this);
-    //     this.add = this.add.bind(this);
-    //     this.processAppeal = this.processAppeal.bind(this);
-    //     this.cancelAppeal = this.cancelAppeal.bind(this);
-    //     this.finishAppeal = this.finishAppeal.bind(this);
-    //     this.cancelAllProcessAppeals = this.cancelAllProcessAppeals.bind(this);
-    // }
-
     public getAll = async(req: Request, res: Response) => {
         const appeals = await this.appealService.getAllAppeals()
         return res.status(200).json({
